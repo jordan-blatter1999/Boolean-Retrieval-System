@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: Peru;
+        }
+    </style>
+    <title>Washington Post Search</title>
+</head>
+<body>
+
+<h3>Washington Post Search</h3>
+
+<form action="{{ url_for('results') }}" name="search" method="post">
+    <label for="query">Query:</label>
+    <input type="text" id="query" name="query" size=50 placeholder="{{query_text}}">
+    <input type="submit" value="Search">
+</form>
+
+<br>
+<div>Ignored stopwords: {% for word in stopwords %}{{word}}{% endfor %}</div>
+<br>
+<div>Unknown words in query: {% for word in unknown %}{{word}}{% endfor %}</div>
+<br>
+<h3>{{er}}</h3>
+<br>
+<div>{{num_matches}} total results: </div>
+<br>
+{% for article, title, content in matches %}
+    <div><a href="../doc_data/{{article}}">{{title}}</a></div>
+    <div>{{ content }}</div>
+    <br>
+{% endfor %}
+
+<div>
+    {% if more_content == "true" %}
+        <a href = "{{url}}">Next Page</a>
+    {% endif %}
+</div>
+
+</body>
+</html>
